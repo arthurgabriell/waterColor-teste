@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
     'ArthurGabriel040817',
     {
         host: 'localhost',
-        dialect: 'mysql'
+        dialect: 'sqlite'
     }
 );
 

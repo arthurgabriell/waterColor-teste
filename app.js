@@ -3,10 +3,15 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const sequelize = require('./config/db');
 const estudante = require('./models/estudante.model');
+const app = express();
+//-----------------------------------------------------
+const servidoresRouter = require('./routes/servidores.js');
+app.use('/servidores', servidoresRouter);
+//-----------------------------------------------------
 const produtosRouter = require('./routes/produtos');
 const path = require('path');
 
-const app = express();
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +21,18 @@ app.use('/produtos', produtosRouter);
 app.engine('handlebars', exphbs.engine({ defaultLayout: false }));
 app.set('view engine', 'handlebars');
 
+
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+//----------------------------------------------------------------
+
+
+app.get('/login', (req, res) => {
+  res.render('loginEscolha');
+});
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
+//-----------------------------------------------------------------
 //Read
 app.get('/', async (req, res) => {
   const estudantes = await estudante.findAll({ raw: true });
@@ -61,28 +78,16 @@ app.put('/estudante/:id', async (req, res) => {
   const id = req.params.id;
   const nome = req.body.nome;
 
-  const estudanteEdit = await estudante.findBypk(id);
+  const estudanteEdit = await estudante.findByPk(id);
 
-  estudante.nome = nome;
-  estudante.save();
+estudanteEdit.nome = nome;
+estudanteEdit.email = req.body.email;
+estudanteEdit.senha = req.body.senha;
 
-  res.redirect('/');
+await estudanteEdit.save();
 });
 
 //Delete
-app.post('/estudantes', async (req, res) => {
-  console.log(req.body);
-
-  const { nome, email, senha } = req.body;
-
-  await estudante.create({
-    nome,
-    email,
-    senha,
-  });
-
-  res.redirect('/');
-});
 
 async function conectarBD() {
   try {
