@@ -34,9 +34,11 @@ app.get('/login', (req, res) => {
 //-----------------------------------------------------------------
 //-----------------------------------------------------------------
 //Read
-app.get('/', async (req, res) => {
+app.get('/', (req, res) => {
+  res.render('loginEscolha');
+});
+app.get('/estudantes', async (req, res) => {
   const estudantes = await estudante.findAll({ raw: true });
-
   res.render('listarEstudantes', { estudantes });
 });
 
