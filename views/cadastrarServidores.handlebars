@@ -1,0 +1,39 @@
+
+<html lang='pt-BR'>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Sistema Escolar - Servidores</title>
+    <link rel='stylesheet' href='/css/styleS.css' />
+  </head>
+  <body>
+
+    <div class='container'>
+
+      <h1>Sistema Escolar</h1>
+      <h3>Cadastro de Servidor</h3>
+
+      <input type='text' id='nome' placeholder='Nome' />
+      <input type='email' id='email' placeholder='E-mail institucional' />
+      <input type='password' id='senha' placeholder='Senha' />
+
+      <button onclick='salvar()'>Salvar Conta</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody id='tabela'></tbody>
+
+      </table>
+
+    </div>
+
+    <script src='/js/script.js'></script>
+
+  </body>
+</html>
